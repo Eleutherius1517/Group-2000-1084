@@ -750,7 +750,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!195 &464920273660834932
 NavMeshAgent:
@@ -801,6 +801,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _life: 20
+  _player: {fileID: 0}
+  _bulletPrefab: {fileID: 2200643416931540948, guid: 77ec1f5b327f1d94880c3deea2bb36fd,
+    type: 3}
+  _spawnPosition: {fileID: 6912746239564301409}
+  _speedRotate: 1
   speed: 2
   dir: {x: 0, y: 0, z: -1}
 --- !u!1 &8226032609790317155

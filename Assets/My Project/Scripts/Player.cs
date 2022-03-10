@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Vector3 _direction;
-    public float speed = 3f;
+    [SerializeField] private float speed = 0.3f;
 
     public GameObject enemyPrefab;
     public Transform spawnPosition;
+
+    public GameObject bombPrefab;
+    public Transform spawnPositionBomb;
 
     private bool _isSpawnEnemies;
     [SerializeField] Enemyes _enemyes;
@@ -18,6 +22,9 @@ public class Player : MonoBehaviour
     public bool isGrounded = true;
     private Vector3 jumpDirection = Vector3.up;
 
+    Quaternion _rotation = Quaternion.identity;
+    [SerializeField] private float turnSpeed = 7f;
+
     void Start()
     {
         this._rigidBody = this.GetComponent<Rigidbody>();
@@ -25,13 +32,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        _direction.x = Input.GetAxis("Horizontal");
-        _direction.z = Input.GetAxis("Vertical");
-        //_direction.y = Input.GetAxis("Jump");
+        //_direction.x = Input.GetAxis("Horizontal");
+        //_direction.z = Input.GetAxis("Vertical");
+
+        
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             this.Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            this.TakeDownBomb();
         }
         _enemyes = FindObjectOfType<Enemyes>();
         if (_enemyes == null)
@@ -39,15 +52,24 @@ public class Player : MonoBehaviour
             _isSpawnEnemies = true;
         }
     }
+
+    private void TakeDownBomb()
+    {
+        var bombObj = Instantiate(bombPrefab, spawnPositionBomb.position, spawnPositionBomb.rotation);
+    }
+
     void FixedUpdate()
     {
-        Move(Time.fixedDeltaTime);
-        //if (transform.position.y > 0)
-        //{
-        //    _direction.y = -_direction.y;
-        //    Move(Time.fixedDeltaTime);
-        //}
-        
+
+        //Move(Time.fixedDeltaTime);
+
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        _direction.Set(horizontal, 0f, vertical);
+        _direction.Normalize();
+        Vector3 desiredForward = Vector3.RotateTowards(transform.forward, _direction, turnSpeed * Time.deltaTime, 0f);
+        _rotation = Quaternion.LookRotation(desiredForward);
+
 
         if (_isSpawnEnemies)
         {
@@ -56,9 +78,15 @@ public class Player : MonoBehaviour
         }
         
     }
+    void OnAnimatorMove()
+    {
+        _rigidBody.MovePosition(_rigidBody.position + _direction * speed);
+        _rigidBody.MoveRotation(_rotation);
+    }
     private void Move(float delta)
     {
-        transform.position += _direction * speed * delta;
+
+        transform.position += _direction.normalized * speed * delta;
     }
 
     private void Jump()

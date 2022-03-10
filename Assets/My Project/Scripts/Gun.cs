@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour
     public GameObject muzzle;
     public ParticleSystem muzzleFlash;
     public GameObject impactEffect;
+    private float count = 0;
 
     private float nextTimetoFire = 0f;
     
@@ -19,6 +20,15 @@ public class Gun : MonoBehaviour
         {
             nextTimetoFire = Time.time + 1f / fireRate;
             Shoot();
+        }
+        
+    }
+    private void FixedUpdate()
+    {
+        if (count >= 3)
+        {
+            Debug.Log("Good bye");
+            Application.Quit();
         }
     }
     void Shoot()
@@ -32,6 +42,8 @@ public class Gun : MonoBehaviour
             if (target != null)
             {
                 target.TakeDamage(damage);
+                count++;
+                Debug.Log(count++);
             }
             GameObject ImpactGo = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(ImpactGo, 2f);
