@@ -30061,6 +30061,8 @@ GameObject:
   - component: {fileID: 7756592281865245771}
   - component: {fileID: 4413175985791026162}
   - component: {fileID: 6397907953075724335}
+  - component: {fileID: 6397907953075724336}
+  - component: {fileID: 6397907953075724337}
   m_Layer: 0
   m_Name: JohnLemon
   m_TagString: Player
@@ -30080,7 +30082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09252baae6230744c9a70c896df2e0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
   enemyPrefab: {fileID: 8159869558623260957, guid: 975668b9d0c882040b40422a85db52ff,
     type: 3}
   spawnPosition: {fileID: 417757011}
@@ -30089,9 +30090,38 @@ MonoBehaviour:
   spawnPositionBomb: {fileID: 835565884}
   _enemyes: {fileID: 7606594339303639882, guid: 975668b9d0c882040b40422a85db52ff,
     type: 3}
-  jumpPower: 50
-  isGrounded: 1
-  turnSpeed: 7
+--- !u!143 &6397907953075724336
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397907953075724334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.37
+  m_Radius: 0.37
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.69, z: 0}
+--- !u!114 &6397907953075724337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397907953075724334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7737a9893b1cc48a8a48fa9a39d369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMove: 1
+  jumpPower: 10
 --- !u!1 &6589282008362623134
 GameObject:
   m_ObjectHideFlags: 0
@@ -30474,7 +30504,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &7857719950257786176
 GameObject:
