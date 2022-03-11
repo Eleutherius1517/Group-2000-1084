@@ -25,11 +25,8 @@ public class Player : MonoBehaviour
         {
             this.TakeDownBomb();
         }
-        _enemyes = FindObjectOfType<Enemyes>();
-        if (_enemyes == null)
-        {
-            _isSpawnEnemies = true;
-        }
+        
+        
     }
 
     private void TakeDownBomb()
@@ -39,14 +36,19 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
+        if (transform.position.y < -1)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+        }
+        if (GameObject.Find("Ghost") == null)
+        {
+            _isSpawnEnemies = true;
+        }
         if (_isSpawnEnemies)
         {
             _isSpawnEnemies = false;
             SpawnEnemies();
         }
-        
     }
 
     private void SpawnEnemies()

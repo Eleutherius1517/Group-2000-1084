@@ -27,7 +27,7 @@ public class Gun : MonoBehaviour
     {
         if (count >= 3)
         {
-            Debug.Log("Good bye");
+            FindObjectOfType<GameManager>().EndGame();
             Application.Quit();
         }
     }
